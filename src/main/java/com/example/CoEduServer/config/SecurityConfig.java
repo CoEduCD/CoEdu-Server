@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
+
 public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
     
@@ -24,14 +25,13 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/login/**").permitAll()
+                                .requestMatchers("/", "/login/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
                         .userInfoEndpoint( userInfo -> userInfo.
                                 userService(customOAuth2UserService)));
-
         return http.build();
     }
 }
