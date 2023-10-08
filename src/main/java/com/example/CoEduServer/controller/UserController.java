@@ -14,7 +14,11 @@ public class UserController {
     public String login(){
         return "login";
     }
-
+    @GetMapping("/main")
+    public String main(){
+        System.out.println("main");
+        return "main";
+    }
     @GetMapping("/")
     public String index(){
         return "index";
