@@ -29,7 +29,7 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("/146.56.105.34:8080/main")
+                        .defaultSuccessUrl("/ec2-15-165-115-163.ap-northeast-2.compute.amazonaws.com:8080/main")
                         .userInfoEndpoint( userInfo -> userInfo.
                                 userService(customOAuth2UserService)));
         return http.build();
