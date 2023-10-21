@@ -6,13 +6,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @Entity
 public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long user_id;
 
     @Column
     private String name;
@@ -25,6 +28,9 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
 
+    @OneToMany(mappedBy = "user")
+    private List<File> files = new ArrayList<>();
+
     @Builder
     public User(String name, String email, String picture, Role role){
         this.name = name;
@@ -32,6 +38,7 @@ public class User extends BaseTimeEntity {
         this.picture = picture;
         this.role = role;
     }
+
 
     public User update(String name, String picture){
         this.name = name;
