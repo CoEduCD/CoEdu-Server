@@ -25,11 +25,11 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/", "/login/**").permitAll()
+                                .requestMatchers("/", "/login/**", "/main").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("/ec2-15-165-115-163.ap-northeast-2.compute.amazonaws.com:8080/main")
+                        .defaultSuccessUrl("/main")
                         .userInfoEndpoint( userInfo -> userInfo.
                                 userService(customOAuth2UserService)));
         return http.build();
