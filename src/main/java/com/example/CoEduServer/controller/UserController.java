@@ -19,7 +19,7 @@ public class UserController {
     public void main(){
         System.out.println("print main");
     }
-//    @GetMapping("/main/{email}")
+//    @GetMapping("/main/{email}")w
 //    public ResponseEntity<? extends BaseResponse> getFiles(@PathVariable String email) throws Exception{
 //        return ResponseEntity.status(200).body(new BaseResponse("전체 조회가 성공하였습니다.", 200));
 //    }

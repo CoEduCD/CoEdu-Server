@@ -19,7 +19,7 @@ public class FileController {
     private final FileService fileService;
     private final FileRepository fileRepository;
     private final UserRepository userRepository;
-    @PostMapping("/main/file/add")
+    @PostMapping("/file/create")
     public ResponseEntity<? extends BaseResponse> addFile(@RequestBody FileCreateDTO fileCreateDTO){
         File file = new File();
         file.setFile_name(fileCreateDTO.getFile_name());

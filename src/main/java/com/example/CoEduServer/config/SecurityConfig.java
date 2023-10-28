@@ -29,7 +29,7 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("/main")
+                        .defaultSuccessUrl("/")
                         .userInfoEndpoint( userInfo -> userInfo.
                                 userService(customOAuth2UserService)));
         return http.build();
