@@ -19,20 +19,16 @@ public class UserController {
     private final HttpSession httpSession;
     private final UserRepository userRepository;
     @GetMapping("/user")
-    public void getUserInfo(){
+    public void getUserInfo() {
         SessionUser loginUser = (SessionUser) httpSession.getAttribute("user");
         Optional<User> optionalUser = userRepository.findById(loginUser.getUser_id());
         User findUser = optionalUser.get();
         System.out.println(findUser);
     }
-//    @PostMapping("/")
-//    public ResponseEntity<?> getUser(@RequestBody Long Id){
-//        if(userService.isExistUserId(Id)){
-//            return ResponseEntity.status(400).body(new BaseResponse("존재하지 않는 아이디 입니다.", 400));
-//        }
-//
-//        Optional<User> user = userRepository.findByUser_id(Id);
-//
-//        return ResponseEntity.ok(user);
-//    }
+
+    @GetMapping("/login/oauth2/code/{registrationId}")
+    public void googleLogin(@RequestParam String code, @PathVariable String registrationId){
+        System.out.println("code =" + code);
+        System.out.println("registrationId = "  + registrationId);
+    }
 }
