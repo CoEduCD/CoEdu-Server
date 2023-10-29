@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class SessionUser implements Serializable {
     private String email;
     private String name;
-    private String user_id;
+    private Long user_id;
 
     public SessionUser(User user){
         this.email = user.getEmail();
