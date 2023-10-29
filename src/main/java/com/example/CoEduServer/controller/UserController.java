@@ -5,17 +5,16 @@ import com.example.CoEduServer.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
-    private final FileService fileService;
-
-    
     @GetMapping("/")
-    public void main(){
-        System.out.println("print main");
+    public void getUserInfo(Principal principal){
+        String username = principal.getName();
+        System.out.println(username);
     }
 
 }
