@@ -8,10 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class FileDeleteDTO {
     @NotNull
-    private String file_name;
+    private Long file_id;
     @NotNull
-    private String language;
-    @NotNull
-    private String file_detail;
-    private Long userId;
+    private Long user_id;
 }

@@ -1,6 +1,8 @@
 package com.example.CoEduServer.domain;
 
+import com.example.CoEduServer.domain.enums.Role;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class File extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long file_Id;
+    private Long file_id;
 
     @Column
     private String file_name;
@@ -25,5 +27,12 @@ public class File extends BaseTimeEntity{
     @JoinColumn(name="user_id")
     private User user;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+    public String getRoleKey(){
+        return this.role.getKey();
+    }
 
 }

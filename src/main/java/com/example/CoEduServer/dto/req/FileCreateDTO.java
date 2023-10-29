@@ -11,14 +11,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public class FileCreateDTO {
     @NotNull
-    private String file_name;
+    String file_name;
     @NotNull
-    private String language;
+    String language;
     @NotNull
-    private String file_detail;
-    private Long userId;
+    String file_detail;
 
-//    @Builder
-//    public FileCreateDTO(String file_name, String language, String file_detail
-//    )
+    Long user_id;
+
 }

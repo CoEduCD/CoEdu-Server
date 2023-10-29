@@ -1,7 +1,9 @@
 package com.example.CoEduServer.domain;
 
 import com.example.CoEduServer.domain.enums.Role;
+import com.example.CoEduServer.dto.UserDto;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class User extends BaseTimeEntity {
     @Id
@@ -25,29 +29,7 @@ public class User extends BaseTimeEntity {
 
     @Column
     private String picture;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
 
     @OneToMany(mappedBy = "user")
-    private List<File> files = new ArrayList<>();
-
-    @Builder
-    public User(String name, String email, String picture, Role role){
-        this.name = name;
-        this.email = email;
-        this.picture = picture;
-        this.role = role;
-    }
-
-
-    public User update(String name, String picture){
-        this.name = name;
-        this.picture = picture;
-
-        return this;
-    }
-    public String getRoleKey(){
-        return this.role.getKey();
-    }
+    private final List<File> fileList = new ArrayList<>();
 }

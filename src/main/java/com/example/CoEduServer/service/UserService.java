@@ -1,6 +1,7 @@
 package com.example.CoEduServer.service;
 
 import com.example.CoEduServer.domain.User;
+import com.example.CoEduServer.dto.req.LoginReq;
 import com.example.CoEduServer.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    public boolean isExistEmail(String email){
-        User byEmail = userRepository.findByEmail(email).orElse(null);
-        return byEmail != null;
+    public Long save(LoginReq loginReq){
+        User savedUser = userRepository.save(loginReq.toEntity());
+        return savedUser.getUser_id();
     }
 
 //    public boolean isExistUserId(Long Id){
