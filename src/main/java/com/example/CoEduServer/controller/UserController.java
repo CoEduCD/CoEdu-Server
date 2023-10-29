@@ -24,7 +24,6 @@ public class UserController {
         Optional<User> optionalUser = userRepository.findById(loginUser.getUser_id());
         User findUser = optionalUser.get();
         System.out.println(findUser);
-}
     }
 //    @PostMapping("/")
 //    public ResponseEntity<?> getUser(@RequestBody Long Id){
