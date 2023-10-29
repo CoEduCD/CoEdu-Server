@@ -17,8 +17,6 @@ import java.util.Optional;
 public class UserController {
 
     private final HttpSession httpSession;
-    private final UserService userService;
-    private final UserRepository userRepository;
     @GetMapping("/")
     public Long getUserInfo(){
         SessionUser loginUser = (SessionUser) httpSession.getAttribute("user");
