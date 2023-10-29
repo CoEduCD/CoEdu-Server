@@ -24,14 +24,14 @@ public class UserController {
         SessionUser loginUser = (SessionUser) httpSession.getAttribute("user");
         return loginUser.getUser_id();
     }
-    @PostMapping("/")
-    public ResponseEntity<?> getUser(@RequestBody Long Id){
-        if(userService.isExistUserId(Id)){
-            return ResponseEntity.status(400).body(new BaseResponse("존재하지 않는 아이디 입니다.", 400));
-        }
-
-        Optional<User> user = userRepository.findByUser_id(Id);
-
-        return ResponseEntity.ok(user);
-    }
+//    @PostMapping("/")
+//    public ResponseEntity<?> getUser(@RequestBody Long Id){
+//        if(userService.isExistUserId(Id)){
+//            return ResponseEntity.status(400).body(new BaseResponse("존재하지 않는 아이디 입니다.", 400));
+//        }
+//
+//        Optional<User> user = userRepository.findByUser_id(Id);
+//
+//        return ResponseEntity.ok(user);
+//    }
 }

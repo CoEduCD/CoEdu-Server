@@ -16,11 +16,11 @@ public class UserService {
         return byEmail != null;
     }
 
-    public boolean isExistUserId(Long Id){
-        User byId = userRepository.findByUser_id(Id).orElse(null);
-
-        return byId != null;
-    }
+//    public boolean isExistUserId(Long Id){
+//        User byId = userRepository.findByUser_id(Id).orElse(null);
+//
+//        return byId != null;
+//    }
 
 //    public User getUser(Long Id){
 //        Optional<User> user = userRepository.findByUser_id(Id);
