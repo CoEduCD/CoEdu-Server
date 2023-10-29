@@ -30,7 +30,11 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("/")
+                        .successHandler((request, response, authentication) -> {
+                            String redirectUrl = request.getRequestURL().toString();
+                            System.out.println(redirectUrl);
+                            response.sendRedirect(redirectUrl);
+                        })
                         .userInfoEndpoint( userInfo -> userInfo.
                                 userService(customOAuth2UserService)));
         return http.build();
