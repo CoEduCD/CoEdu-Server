@@ -21,8 +21,10 @@ public class UserController {
     @GetMapping("/user")
     public void getUserInfo(){
         SessionUser loginUser = (SessionUser) httpSession.getAttribute("user");
-        Optional<User> user = userRepository.findByUser_id(loginUser.getUser_id());
-        System.out.println(user);
+        Optional<User> optionalUser = userRepository.findById(loginUser.getUser_id());
+        User findUser = optionalUser.get();
+        System.out.println(findUser);
+}
     }
 //    @PostMapping("/")
 //    public ResponseEntity<?> getUser(@RequestBody Long Id){
