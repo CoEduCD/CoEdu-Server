@@ -22,9 +22,9 @@ public class UserService {
         return byId != null;
     }
 
-    public User getUser(Long Id){
-        Optional<User> user = userRepository.findByUser_id(Id);
-
-        return user;
-    }
+//    public User getUser(Long Id){
+//        Optional<User> user = userRepository.findByUser_id(Id);
+//
+//        return user;
+//    }
 }
