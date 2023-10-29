@@ -32,12 +32,13 @@ public class SecurityConfig {
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler((request, response, authentication) -> {
                             String redirectUrl = request.getRequestURL().toString();
-                            if (redirectUrl.contains("ec2-15-165-115-163.ap-northeast-2.compute.amazonaws.com:8080")) {
+                            System.out.println("redirectURL1111= " + redirectUrl);
+                            if (redirectUrl.contains("ec2-15-165-115-163.ap-northeast-2.compute.amazonaws.com:8080/")) {
                                 redirectUrl = "http://localhost:3000/";
                             } else {
                                 redirectUrl = "http://ec2-15-165-115-163.ap-northeast-2.compute.amazonaws.com:8080/";
                             }
-                            System.out.println(redirectUrl);
+                            System.out.println("redirectURL= " + redirectUrl);
                             response.sendRedirect(redirectUrl);
                         })
                         .userInfoEndpoint( userInfo -> userInfo.
