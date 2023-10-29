@@ -30,7 +30,10 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("http://localhost:3000")
+                        .successHandler((request, response, authentication) -> {
+                            String redirectUrl = "http://localhost:3000/";
+                            response.sendRedirect(redirectUrl);
+                        })
                         .userInfoEndpoint( userInfo -> userInfo.
                                 userService(customOAuth2UserService)));
         return http.build();
