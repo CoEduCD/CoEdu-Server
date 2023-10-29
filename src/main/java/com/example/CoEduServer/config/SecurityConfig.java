@@ -31,7 +31,7 @@ public class SecurityConfig {
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .redirectionEndpoint(redirect-> {
-                            redirect.baseUri("http://localhost:3000/");
+                            redirect.baseUri("http://localhost:3000");
                         })
                         .userInfoEndpoint( userInfo -> userInfo.
                                 userService(customOAuth2UserService)));
