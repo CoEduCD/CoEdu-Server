@@ -13,7 +13,7 @@ public class UserController {
     private final FileService fileService;
 
     
-    @GetMapping("/main")
+    @GetMapping("/")
     public void main(){
         System.out.println("print main");
     }
