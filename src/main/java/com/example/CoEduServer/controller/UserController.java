@@ -17,10 +17,12 @@ import java.util.Optional;
 public class UserController {
 
     private final HttpSession httpSession;
-    @GetMapping("/")
-    public Long getUserInfo(){
+    private final UserRepository userRepository;
+    @GetMapping("/user")
+    public ResponseEntity<?> getUserInfo(){
         SessionUser loginUser = (SessionUser) httpSession.getAttribute("user");
-        return loginUser.getUser_id();
+        Optional<User> user = userRepository.findByUser_id(loginUser.getUser_id());
+        return ResponseEntity.ok().body(user);
     }
 //    @PostMapping("/")
 //    public ResponseEntity<?> getUser(@RequestBody Long Id){
