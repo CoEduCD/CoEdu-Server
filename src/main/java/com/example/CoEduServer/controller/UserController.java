@@ -21,7 +21,7 @@ public class UserController {
     @GetMapping("/user")
     public ResponseEntity<?> getUserInfo(){
         SessionUser loginUser = (SessionUser) httpSession.getAttribute("user");
-        Optional<User> user = userRepository.findByUser_id(loginUser.getUser_id());
+        User user = userRepository.findByUser_id(loginUser.getUser_id());
         return ResponseEntity.ok().body(user);
     }
 //    @PostMapping("/")
