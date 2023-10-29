@@ -25,7 +25,8 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/", "/login/**", "/main").permitAll()
+                                .requestMatchers("/", "/login/**", "/main", "**",
+                                        "/file/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
