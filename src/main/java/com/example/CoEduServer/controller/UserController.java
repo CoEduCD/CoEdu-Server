@@ -17,7 +17,7 @@ public class UserController {
     @GetMapping("/")
     public void getUserInfo(){
         SessionUser loginUser = (SessionUser) httpSession.getAttribute("user");
-        System.out.println("loginuser=" + loginUser);
+        System.out.println("loginuser=" + loginUser.getUser_id());
     }
 
 }
