@@ -13,8 +13,15 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     public Long save(LoginReq loginReq){
-        User savedUser = userRepository.save(loginReq.toEntity());
-        return savedUser.getUser_id();
+        User byUser = userRepository.findByEmail(loginReq.getEmail()).orElse(null);
+        if(byUser == null){
+            User savedUser = userRepository.save(loginReq.toEntity());
+            return savedUser.getUser_id();
+        }
+        else{
+            return byUser.getUser_id();
+        }
+
     }
 
 //    public boolean isExistUserId(Long Id){
