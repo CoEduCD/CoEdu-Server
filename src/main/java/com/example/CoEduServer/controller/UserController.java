@@ -17,7 +17,7 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
-    @PostMapping("/")
+    @PostMapping("/user")
     public ResponseEntity<Long> createUser(@RequestBody LoginReq loginReq){
         Long userId = userService.save(loginReq);
         return ResponseEntity.ok().body(userId);
