@@ -15,7 +15,6 @@ public class UserDto {
     private Long user_id;
     private String name;
     private String email;
-    private String picture;
     private List<File> fileList;
 
     public static UserDto of(User user){
@@ -23,7 +22,6 @@ public class UserDto {
                 .user_id(user.getUser_id())
                 .name(user.getName())
                 .email(user.getEmail())
-                .picture(user.getPicture())
                 .fileList(user.getFileList())
                 .build();
     }
