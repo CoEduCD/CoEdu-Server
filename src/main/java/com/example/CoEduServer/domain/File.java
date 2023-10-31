@@ -6,13 +6,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @Entity
 public class File extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long file_id;
+    @Column(name = "file_id")
+    private Long id;
 
     @Column
     private String file_name;
@@ -23,13 +27,12 @@ public class File extends BaseTimeEntity{
     @Column
     private String file_detail;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private User user;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @OneToMany(mappedBy = "file")
+    private List<User_File> userFiles = new ArrayList<>();
 
     public String getRoleKey(){
         return this.role.getKey();

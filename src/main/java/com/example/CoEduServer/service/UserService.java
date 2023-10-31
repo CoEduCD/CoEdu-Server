@@ -14,14 +14,14 @@ public class UserService {
     private final UserRepository userRepository;
     public Long save(LoginReq loginReq){
         User byUser = userRepository.findByEmail(loginReq.getEmail()).orElse(null);
+        System.out.println(byUser);
         if(byUser == null){
             User savedUser = userRepository.save(loginReq.toEntity());
-            return savedUser.getUser_id();
+            return savedUser.getId();
         }
         else{
-            return byUser.getUser_id();
+            return byUser.getId();
         }
-
     }
 
 //    public boolean isExistUserId(Long Id){

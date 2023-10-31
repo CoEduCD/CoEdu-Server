@@ -1,7 +1,6 @@
 package com.example.CoEduServer.domain;
 
 import com.example.CoEduServer.domain.enums.Role;
-import com.example.CoEduServer.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,8 +18,8 @@ import java.util.List;
 public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true)
-    private Long user_id;
+    @Column(unique = true, name = "user_id")
+    private Long id;
 
     @Column
     private String name;
@@ -28,5 +27,5 @@ public class User extends BaseTimeEntity {
     private String email;
 
     @OneToMany(mappedBy = "user")
-    private final List<File> fileList = new ArrayList<>();
+    private final List<User_File> userFiles = new ArrayList<>();
 }
