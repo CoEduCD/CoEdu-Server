@@ -16,7 +16,12 @@ public class FileCreateDTO {
     String language;
     @NotNull
     String file_detail;
-
     Long user_id;
-
+    public File toEntity(){
+        return File.builder()
+                .file_name(file_name)
+                .language(language)
+                .file_detail(file_detail)
+                .build();
+    }
 }

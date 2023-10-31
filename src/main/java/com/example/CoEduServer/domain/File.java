@@ -2,6 +2,7 @@ package com.example.CoEduServer.domain;
 
 import com.example.CoEduServer.domain.enums.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class File extends BaseTimeEntity{
