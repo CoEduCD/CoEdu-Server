@@ -1,6 +1,7 @@
 package com.example.CoEduServer.dto.req;
 
 import com.example.CoEduServer.domain.File;
+import com.example.CoEduServer.domain.enums.Role;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,7 @@ public class FileCreateDTO {
                 .file_name(file_name)
                 .language(language)
                 .file_detail(file_detail)
+                .role(Role.ADMIN)
                 .build();
     }
 }
