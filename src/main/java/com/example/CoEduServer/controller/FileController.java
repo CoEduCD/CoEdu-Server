@@ -29,17 +29,19 @@ public class FileController {
     private final UserRepository userRepository;
     private final UserFileRepository userFileRepository;
     @GetMapping("/file/{userId}")
-    public ResponseEntity<List<File>> getUserFiles(@PathVariable Long userId) {
+    public void getUserFiles(@PathVariable Long userId) {
         List<User_File> userFiles = userFileRepository.findByUser_Id(userId);
-
+        for (User_File userFile : userFiles) {
+            System.out.println(userFile);
+        }
         // 파일 ID 목록을 추출
-        List<Long> fileIds = userFiles.stream()
-                .map(userFile -> userFile.getFile().getId())
-                .collect(Collectors.toList());
-
-        // 파일 ID 목록을 사용하여 파일 정보를 가져옴
-        List<File> files = fileRepository.findByIdIn(fileIds);
-        return ResponseEntity.ok().body(files);
+//        List<Long> fileIds = userFiles.stream()
+//                .map(userFile -> userFile.getFile().getId())
+//                .collect(Collectors.toList());
+//
+//        // 파일 ID 목록을 사용하여 파일 정보를 가져옴
+//        List<File> files = fileRepository.findByIdIn(fileIds);
+//        return ResponseEntity.ok().body(files);
     }
     @PostMapping("/file/create")
     public ResponseEntity<? extends BaseResponse> addFile(@RequestBody FileCreateDTO fileCreateDTO){

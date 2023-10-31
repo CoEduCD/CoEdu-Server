@@ -27,7 +27,7 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String email;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "user")
     private final List<User_File> userFiles = new ArrayList<>();
 }

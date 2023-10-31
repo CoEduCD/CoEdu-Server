@@ -32,10 +32,10 @@ public class File extends BaseTimeEntity{
     private String file_detail;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column
     private Role role;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "file")
     private List<User_File> userFiles = new ArrayList<>();
 
