@@ -21,7 +21,6 @@ public class UserController {
     @PostMapping("/user")
     public ResponseEntity<Long> createUser(@RequestBody LoginReq loginReq){
         Long userId = userService.save(loginReq);
-        System.out.println(userId);
         return ResponseEntity.ok().body(userId);
     }
 }
