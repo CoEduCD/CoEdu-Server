@@ -46,13 +46,14 @@ public class FileController {
         // file을 생성할때 해당 사용자의 id와 파일 정보들을 전달받음.
         // 전달받은 파일 정보들을 저장하는데,
         // 이걸 user_file에도 user_id와 file_id로 같이 저장해주면됨.
-        fileRepository.save(fileCreateDTO.toEntity());
+        File file = fileCreateDTO.toEntity();
+        fileRepository.save(file);
         // 해당 유저의 정보를 찾음
         User user = userRepository.findById(fileCreateDTO.getUser_id()).orElse(null);
         // 해당 유저의 정보와 파일 정보를 user_file에 저장
         User_File userFile = new User_File();
         userFile.setUser(user);
-        userFile.setFile(fileCreateDTO.toEntity());
+        userFile.setFile(file);
         userFileRepository.save(userFile);
         return ResponseEntity.status(200).body(new BaseResponse("파일 생성 성공", 200));
     }
