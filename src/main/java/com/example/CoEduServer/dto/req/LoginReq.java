@@ -14,13 +14,11 @@ import java.util.List;
 public class LoginReq {
     String name;
     String email;
-    String picture;
     List<File> fileList;
     public User toEntity(){
         return User.builder()
                 .name(name)
                 .email(email)
-                .picture(picture)
                 .build();
     }
 }
