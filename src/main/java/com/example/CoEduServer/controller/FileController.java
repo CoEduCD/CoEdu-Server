@@ -2,6 +2,7 @@ package com.example.CoEduServer.controller;
 
 import com.example.CoEduServer.domain.File;
 import com.example.CoEduServer.domain.User;
+import com.example.CoEduServer.domain.enums.Role;
 import com.example.CoEduServer.dto.FileDto;
 import com.example.CoEduServer.dto.req.FileCreateDTO;
 import com.example.CoEduServer.dto.req.FileDeleteDTO;
@@ -31,7 +32,7 @@ public class FileController {
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            List<File> userFiles = user.getFileList(); // User 엔티티에서 파일 목록을 가져옵니다.
+            List<File> userFiles = user.getFileList();
 
             // User 엔티티의 파일 목록을 FileDto 목록으로 변환
             List<FileDto> fileDtoList = userFiles.stream()
@@ -57,6 +58,7 @@ public class FileController {
             file.setFile_name(newFileName);
             file.setLanguage(fileCreateDTO.getLanguage());
             file.setFile_detail(fileCreateDTO.getFile_detail());
+            file.setRole(Role.ADMIN);
             file.setUser(userRepository.findById(fileCreateDTO.getUser_id()).get());
             fileRepository.save(file);
             return ResponseEntity.status(200).body(new BaseResponse("파일 생성을 성공하였습니다.", 200));
