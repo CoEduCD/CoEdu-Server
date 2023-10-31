@@ -1,6 +1,7 @@
 package com.example.CoEduServer.domain;
 
 import com.example.CoEduServer.domain.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,7 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String email;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private final List<User_File> userFiles = new ArrayList<>();
 }
