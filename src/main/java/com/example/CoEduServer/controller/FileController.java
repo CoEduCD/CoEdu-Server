@@ -12,7 +12,7 @@ import com.example.CoEduServer.repository.FileRepository;
 import com.example.CoEduServer.repository.UserFileRepository;
 import com.example.CoEduServer.repository.UserRepository;
 import com.example.CoEduServer.service.FileService;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,20 +28,40 @@ public class FileController {
     private final FileRepository fileRepository;
     private final UserRepository userRepository;
     private final UserFileRepository userFileRepository;
+
+    @Data
+    @Builder
+    @AllArgsConstructor @NoArgsConstructor
+    public static class FileDto {
+        private Long fileId;
+        private String fileName;
+        private String language;
+        private String fileDetail;
+
+        public static FileDto convert(File file) {
+            return FileDto.builder()
+                    .fileId(file.getId())
+                    .fileName(file.getFile_name())
+                    .language(file.getLanguage())
+                    .fileDetail(file.getFile_detail())
+                    .build();
+        }
+
+    }
     @GetMapping("/file/{userId}")
-    public void getUserFiles(@PathVariable Long userId) {
+    public ResponseEntity<List<FileDto>> getUserFiles(@PathVariable Long userId) {
         List<User_File> userFiles = userFileRepository.findByUser_Id(userId);
         for (User_File userFile : userFiles) {
             System.out.println(userFile);
         }
         // 파일 ID 목록을 추출
-//        List<Long> fileIds = userFiles.stream()
-//                .map(userFile -> userFile.getFile().getId())
-//                .collect(Collectors.toList());
-//
-//        // 파일 ID 목록을 사용하여 파일 정보를 가져옴
-//        List<File> files = fileRepository.findByIdIn(fileIds);
-//        return ResponseEntity.ok().body(files);
+        List<Long> fileIds = userFiles.stream()
+                .map(userFile -> userFile.getFile().getId())
+                .collect(Collectors.toList());
+
+        // 파일 ID 목록을 사용하여 파일 정보를 가져옴
+        List<File> files = fileRepository.findByIdIn(fileIds);
+        return ResponseEntity.ok().body(files.stream().map(FileDto::convert).toList());
     }
     @PostMapping("/file/create")
     public ResponseEntity<? extends BaseResponse> addFile(@RequestBody FileCreateDTO fileCreateDTO){
