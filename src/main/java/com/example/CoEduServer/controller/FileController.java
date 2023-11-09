@@ -49,7 +49,7 @@ public class FileController {
 
     }
     @GetMapping("/file/{userId}")
-    public ResponseEntity<List<FileDto>> getUserFiles(@PathVariable Long userId) {
+    public void getUserFiles(@PathVariable Long userId) {
         List<User_File> userFiles = userFileRepository.findByUser_Id(userId);
         for (User_File userFile : userFiles) {
             System.out.println(userFile);
