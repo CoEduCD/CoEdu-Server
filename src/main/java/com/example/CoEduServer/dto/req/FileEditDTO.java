@@ -14,5 +14,5 @@ public class FileEditDTO {
     private String language;
     @NotNull
     private String file_detail;
-    private Long userId;
+    private Long file_id;
 }

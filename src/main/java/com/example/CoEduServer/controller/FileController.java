@@ -78,12 +78,21 @@ public class FileController {
         return ResponseEntity.status(200).body(new BaseResponse("파일 생성 성공", 200));
     }
 //
-//    @PatchMapping("/file/edit")
-//    public ResponseEntity <? extends BaseResponse> editFile(@RequestBody FileEditDTO fileEditDTO){
-//
-//        return ResponseEntity.status(200).body(new BaseResponse("파일 수정을 성공하였습니다.", 200));
-//    }
-//
+    @PatchMapping("/file/edit")
+    public ResponseEntity<File> editFile(@RequestBody FileEditDTO fileEditDTO){
+        Long fileId = fileEditDTO.getFile_id();
+        File file = fileRepository.findById(fileId).orElse(null);
+        if (file == null) {
+            return ResponseEntity.status(400).body(null);
+        }
+        file.setFile_detail(fileEditDTO.getFile_detail());
+        file.setFile_name(fileEditDTO.getFile_name());
+        file.setLanguage(fileEditDTO.getLanguage());
+
+        File updatedFile = fileRepository.save(file);
+        return ResponseEntity.status(200).body(updatedFile);
+    }
+
     @DeleteMapping("/file/delete")
     public ResponseEntity<? extends BaseResponse> deleteFile(@RequestBody FileDeleteDTO fileDeleteDTO) {
         Long fileId = fileDeleteDTO.getFile_id();
