@@ -50,14 +50,14 @@ public class FileController {
 
     }
     @GetMapping("/file/{userId}")
-    public String getUserFiles(@PathVariable Long userId) {
+    public ResponseEntity<List<User_FileDto>> getUserFiles(@PathVariable Long userId) {
         List<User_File> userFiles = userFileRepository.findByUser_Id(userId);
         List<User_FileDto> dto = new ArrayList<>();
         for(User_File user_file : userFiles) {
             dto.add(User_FileDto.of(user_file));
         }
 
-        return dto.toString();
+        return ResponseEntity.ok().body(dto);
         // 파일 ID 목록을 추출
 //        List<Long> fileIds = userFiles.stream()
 //                .map(userFile -> userFile.getFile().getId())
