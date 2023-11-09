@@ -84,7 +84,7 @@ public class FileController {
 //        return ResponseEntity.status(200).body(new BaseResponse("파일 수정을 성공하였습니다.", 200));
 //    }
 //
-    @DeleteMapping("/file/delete/{file_id}")
+    @DeleteMapping("/file/{file_id}")
     public ResponseEntity<? extends BaseResponse> deleteFile(@PathVariable Long fileId) {
         if(fileId == null){
             return ResponseEntity.status(400).body(new BaseResponse("해당 id를 가진 파일이 존재하지 않습니다.", 400));
