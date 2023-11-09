@@ -85,11 +85,12 @@ public class FileController {
 //    }
 //
     @DeleteMapping("/file/{file_id}")
-    public ResponseEntity<? extends BaseResponse> deleteFile(@PathVariable Long fileId) {
+    public ResponseEntity<? extends BaseResponse> deleteFile(@RequestBody FileDeleteDTO fileDeleteDTO) {
+        Long fileId = fileDeleteDTO.getFile_id();
         if(fileId == null){
             return ResponseEntity.status(400).body(new BaseResponse("해당 id를 가진 파일이 존재하지 않습니다.", 400));
         }
-        fileRepository.findById(fileId);
+        fileRepository.deleteById(fileId);
         return ResponseEntity.status(200).body(new BaseResponse("파일 삭제를 성공하였습니다.", 200));
     }
 }
