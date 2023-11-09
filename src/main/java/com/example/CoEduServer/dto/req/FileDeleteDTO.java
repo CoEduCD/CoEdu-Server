@@ -9,6 +9,4 @@ import lombok.Getter;
 public class FileDeleteDTO {
     @NotNull
     private Long file_id;
-    @NotNull
-    private Long user_id;
 }

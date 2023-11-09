@@ -15,6 +15,7 @@ import com.example.CoEduServer.service.FileService;
 import lombok.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.yaml.snakeyaml.representer.BaseRepresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,14 +59,7 @@ public class FileController {
         }
 
         return ResponseEntity.ok().body(dto);
-        // 파일 ID 목록을 추출
-//        List<Long> fileIds = userFiles.stream()
-//                .map(userFile -> userFile.getFile().getId())
-//                .collect(Collectors.toList());
-//
-//        // 파일 ID 목록을 사용하여 파일 정보를 가져옴
-//        List<File> files = fileRepository.findByIdIn(fileIds);
-//        return ResponseEntity.ok().body(files.stream().map(FileDto::convert).toList());
+
     }
     @PostMapping("/file/create")
     public ResponseEntity<? extends BaseResponse> addFile(@RequestBody FileCreateDTO fileCreateDTO){
@@ -90,27 +84,12 @@ public class FileController {
 //        return ResponseEntity.status(200).body(new BaseResponse("파일 수정을 성공하였습니다.", 200));
 //    }
 //
-//    @DeleteMapping("/file/delete")
-//    public ResponseEntity<? extends BaseResponse> deleteFile(@RequestBody FileDeleteDTO fileDeleteDTO) {
-//        Long fileId = fileDeleteDTO.getFile_id();
-//        Long userId = fileDeleteDTO.getUser_id();
-//
-//        Optional<User> userOptional = userRepository.findById(userId);
-//
-//        if (userOptional.isPresent()) {
-//            User user = userOptional.get();
-//            List<File> fileList = user.getFileList();
-//
-//            // fileList에서 fileId에 해당하는 파일을 찾아 삭제
-//            fileList.removeIf(file -> file.getFile_id().equals(fileId));
-//
-//            // 파일 삭제 후 User 엔티티를 저장 (변경사항을 데이터베이스에 반영)
-//            userRepository.save(user);
-//
-//            return ResponseEntity.ok(new BaseResponse("파일 삭제를 성공하였습니다.", 200));
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-
+    @DeleteMapping("/file/delete/{file_id}")
+    public ResponseEntity<? extends BaseResponse> deleteFile(@PathVariable Long fileId) {
+        if(fileId == null){
+            return ResponseEntity.status(400).body(new BaseResponse("해당 id를 가진 파일이 존재하지 않습니다.", 400));
+        }
+        fileRepository.findById(fileId);
+        return ResponseEntity.status(200).body(new BaseResponse("파일 삭제를 성공하였습니다.", 200));
+    }
 }
