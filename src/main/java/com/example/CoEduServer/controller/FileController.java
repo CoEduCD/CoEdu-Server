@@ -16,6 +16,7 @@ import lombok.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,28 +33,31 @@ public class FileController {
     @Data
     @Builder
     @AllArgsConstructor @NoArgsConstructor
-    public static class FileDto {
+    public static class User_FileDto {
         private Long fileId;
         private String fileName;
         private String language;
         private String fileDetail;
 
-        public static FileDto convert(File file) {
-            return FileDto.builder()
-                    .fileId(file.getId())
-                    .fileName(file.getFile_name())
-                    .language(file.getLanguage())
-                    .fileDetail(file.getFile_detail())
+        public static User_FileDto of(User_File user_file) {
+            return User_FileDto.builder()
+                    .fileId(user_file.getFile().getId())
+                    .fileName(user_file.getFile().getFile_name())
+                    .language(user_file.getFile().getLanguage())
+                    .fileDetail(user_file.getFile().getFile_detail())
                     .build();
         }
 
     }
     @GetMapping("/file/{userId}")
-    public void getUserFiles(@PathVariable Long userId) {
+    public String getUserFiles(@PathVariable Long userId) {
         List<User_File> userFiles = userFileRepository.findByUser_Id(userId);
-        for (User_File userFile : userFiles) {
-            System.out.println(userFile);
+        List<User_FileDto> dto = new ArrayList<>();
+        for(User_File user_file : userFiles) {
+            dto.add(User_FileDto.of(user_file));
         }
+
+        return dto.toString();
         // 파일 ID 목록을 추출
 //        List<Long> fileIds = userFiles.stream()
 //                .map(userFile -> userFile.getFile().getId())
