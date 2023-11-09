@@ -84,7 +84,7 @@ public class FileController {
 //        return ResponseEntity.status(200).body(new BaseResponse("파일 수정을 성공하였습니다.", 200));
 //    }
 //
-    @DeleteMapping("/file/{file_id}")
+    @DeleteMapping("/file/delete")
     public ResponseEntity<? extends BaseResponse> deleteFile(@RequestBody FileDeleteDTO fileDeleteDTO) {
         Long fileId = fileDeleteDTO.getFile_id();
         if(fileId == null){
