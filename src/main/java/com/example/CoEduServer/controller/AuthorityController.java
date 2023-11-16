@@ -29,7 +29,7 @@ public class AuthorityController {
     // User_File entity에도 같이 저장
 
     @GetMapping("/file/authority/{file_hash}")
-    public ResponseEntity<List<GetAuthorityDTO>> getAuthority(@RequestBody String file_hash){
+    public ResponseEntity<List<GetAuthorityDTO>> getAuthority(@PathVariable String file_hash){
         List<User_File> user_files = userFileRepository.findByFileHash(file_hash);
         List<GetAuthorityDTO> dto = new ArrayList<>();
         for(User_File user_file : user_files){
