@@ -23,7 +23,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FileController {
 
-    private final FileService fileService;
     private final FileRepository fileRepository;
     private final UserRepository userRepository;
     private final UserFileRepository userFileRepository;
@@ -36,9 +35,7 @@ public class FileController {
         for(User_File user_file : userFiles) {
             dto.add(GetFilesDTO.toEntity(user_file));
         }
-
         return ResponseEntity.ok().body(dto);
-
     }
     @PostMapping("/file/create")
     public ResponseEntity<? extends BaseResponse> addFile(@RequestBody FileCreateDTO fileCreateDTO){

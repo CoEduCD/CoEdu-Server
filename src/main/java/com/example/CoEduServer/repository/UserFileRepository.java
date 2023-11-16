@@ -14,4 +14,5 @@ public interface UserFileRepository extends JpaRepository<User_File, Long> {
     Optional<User_File> findByFileHashAndUser_Id(String fileHash, Long userId);
 
     List<User_File> findByFileHash(String fileHash);
+    Optional<User_File> findByFile_Id(Long fileId);
 }
