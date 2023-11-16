@@ -1,6 +1,6 @@
 package com.example.CoEduServer.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.CoEduServer.domain.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,4 +20,7 @@ public class User_File {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "file_id")
     private File file;
+
+    private String file_hash;
+    private Role role;
 }

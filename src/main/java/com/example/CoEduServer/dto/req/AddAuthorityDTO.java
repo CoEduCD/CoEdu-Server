@@ -2,31 +2,27 @@ package com.example.CoEduServer.dto.req;
 
 import com.example.CoEduServer.domain.File;
 import com.example.CoEduServer.domain.enums.Role;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-
 
 @Getter
 @AllArgsConstructor
-public class FileCreateDTO {
-    @NotNull
-    String file_name;
-    @NotNull
-    String language;
-    @NotNull
-    String file_detail;
+public class AddAuthorityDTO{
+    private Long file_id;
+    private Long user_id;
+    private String file_name;
+    private String language;
+    private String file_detail;
+    private String file_hash;
+    private Role role;
 
-    String file_hash;
-    Long user_id;
     public File toEntity(){
         return File.builder()
                 .file_name(file_name)
                 .language(language)
                 .file_detail(file_detail)
                 .file_hash(file_hash)
-                .role(Role.ADMIN)
+                .role(role)
                 .build();
     }
 }

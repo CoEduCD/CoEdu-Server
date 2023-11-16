@@ -35,6 +35,8 @@ public class File extends BaseTimeEntity{
     @Column
     private Role role;
 
+    @Column(nullable = false)
+    private String file_hash;
 
     @OneToMany(mappedBy = "file")
     private List<User_File> userFiles = new ArrayList<>();

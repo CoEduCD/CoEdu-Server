@@ -10,4 +10,7 @@ import java.util.Optional;
 public interface FileRepository extends JpaRepository<File, Long> {
     Optional<File> findById(Long id);
     List<File> findByIdIn(List<Long> fileIds);
+
+//    List<File> findByFile_Hash(String file_hash);
+
 }
