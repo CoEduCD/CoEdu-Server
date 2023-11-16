@@ -30,7 +30,7 @@ public class AuthorityController {
 
     @GetMapping("/file/authority/{file_hash}")
     public ResponseEntity<List<GetAuthorityDTO>> getAuthority(@RequestBody String file_hash){
-        List<User_File> user_files = userFileRepository.findByFile_Hash(file_hash);
+        List<User_File> user_files = userFileRepository.findByFileHash(file_hash);
         List<GetAuthorityDTO> dto = new ArrayList<>();
         for(User_File user_file : user_files){
             dto.add(GetAuthorityDTO.toEntity(user_file));
@@ -55,7 +55,7 @@ public class AuthorityController {
         User_File user_file = new User_File();
         user_file.setUser(user);
         user_file.setFile(savedFile);
-        user_file.setFile_hash(addAuthorityDTO.getFile_hash());
+        user_file.setFileHash(addAuthorityDTO.getFileHash());
         user_file.setRole(addAuthorityDTO.getRole());
         userFileRepository.save(user_file);
         return ResponseEntity.status(200).body(new BaseResponse("권한 추가를 성공하였습니다.", 200));
@@ -65,7 +65,7 @@ public class AuthorityController {
     public ResponseEntity<? extends BaseResponse> editAuthority(@RequestBody EditAuthorityDTO editAuthorityDTO){
         // 1. 전달받은 file_hash와 user_id를 가지는 파일을 찾는다.
         // 2. 전달받은 Role로 해당 사용자의 Role을 수정한다.
-        User_File user_file = userFileRepository.findByFile_HashAndUser_Id(editAuthorityDTO.getFile_hash(), editAuthorityDTO.getUser_id()).orElse(null);
+        User_File user_file = userFileRepository.findByFileHashAndUser_Id(editAuthorityDTO.getFileHash(), editAuthorityDTO.getUser_id()).orElse(null);
         if(user_file == null){
             return ResponseEntity.status(500).body(new BaseResponse("유저가 해당 파일을 가지고 있지 않습니다.", 500));
         }

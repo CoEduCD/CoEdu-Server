@@ -9,11 +9,9 @@ import java.util.Optional;
 public interface UserFileRepository extends JpaRepository<User_File, Long> {
     List<User_File> findByUser_Id(Long userId);
 
-    Optional<User_File> findByFile_Id(Long fileId);
-
     Optional<User_File> deleteByFile_Id(Long fileId);
 
-    Optional<User_File> findByFile_HashAndUser_Id(String file_hash, Long UserId);
+    Optional<User_File> findByFileHashAndUser_Id(String fileHash, Long userId);
 
-    List<User_File> findByFile_Hash(String file_hash);
+    List<User_File> findByFileHash(String fileHash);
 }

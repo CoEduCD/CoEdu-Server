@@ -16,9 +16,9 @@ public class GetFilesDTO {
     public static GetFilesDTO toEntity(User_File user_file) {
         return GetFilesDTO.builder()
                 .fileId(user_file.getFile().getId())
-                .fileName(user_file.getFile().getFile_name())
+                .fileName(user_file.getFile().getFileName())
                 .language(user_file.getFile().getLanguage())
-                .fileDetail(user_file.getFile().getFile_detail())
+                .fileDetail(user_file.getFile().getFileDetail())
                 .build();
     }
 

@@ -21,6 +21,6 @@ public class User_File {
     @JoinColumn(name = "file_id")
     private File file;
 
-    private String file_hash;
+    private String fileHash;
     private Role role;
 }

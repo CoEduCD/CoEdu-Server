@@ -10,18 +10,18 @@ import lombok.Getter;
 public class AddAuthorityDTO{
     private Long file_id;
     private Long user_id;
-    private String file_name;
+    private String fileName;
     private String language;
-    private String file_detail;
-    private String file_hash;
+    private String fileDetail;
+    private String fileHash;
     private Role role;
 
     public File toEntity(){
         return File.builder()
-                .file_name(file_name)
+                .fileName(fileName)
                 .language(language)
-                .file_detail(file_detail)
-                .file_hash(file_hash)
+                .fileDetail(fileDetail)
+                .fileHash(fileHash)
                 .role(role)
                 .build();
     }

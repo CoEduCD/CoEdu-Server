@@ -23,20 +23,20 @@ public class File extends BaseTimeEntity{
     private Long id;
 
     @Column
-    private String file_name;
+    private String fileName;
 
     @Column
     private String language;
 
     @Column
-    private String file_detail;
+    private String fileDetail;
 
     @Enumerated(EnumType.STRING)
     @Column
     private Role role;
 
     @Column(nullable = false)
-    private String file_hash;
+    private String fileHash;
 
     @OneToMany(mappedBy = "file")
     private List<User_File> userFiles = new ArrayList<>();

@@ -12,20 +12,20 @@ import lombok.Getter;
 @AllArgsConstructor
 public class FileCreateDTO {
     @NotNull
-    String file_name;
+    String fileName;
     @NotNull
     String language;
     @NotNull
-    String file_detail;
+    String fileDetail;
 
-    String file_hash;
+    String fileHash;
     Long user_id;
     public File toEntity(){
         return File.builder()
-                .file_name(file_name)
+                .fileName(fileName)
                 .language(language)
-                .file_detail(file_detail)
-                .file_hash(file_hash)
+                .fileDetail(fileDetail)
+                .fileHash(fileHash)
                 .role(Role.ADMIN)
                 .build();
     }

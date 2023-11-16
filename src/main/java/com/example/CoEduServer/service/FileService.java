@@ -14,7 +14,7 @@ public class FileService {
     private final FileRepository fileRepository;
 
     public boolean isFileNameDuplicate(List<File> userFiles, String fileName){
-        return userFiles.stream().anyMatch(file -> file.getFile_name().equals(fileName));
+        return userFiles.stream().anyMatch(file -> file.getFileName().equals(fileName));
     }
 
 }

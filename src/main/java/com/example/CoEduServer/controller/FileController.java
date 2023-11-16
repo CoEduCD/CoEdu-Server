@@ -69,8 +69,8 @@ public class FileController {
         if (file == null) {
             return ResponseEntity.status(400).body(null);
         }
-        file.setFile_detail(fileEditDTO.getFile_detail());
-        file.setFile_name(fileEditDTO.getFile_name());
+        file.setFileDetail(fileEditDTO.getFileDetail());
+        file.setFileName(fileEditDTO.getFileName());
         file.setLanguage(fileEditDTO.getLanguage());
         File updatedFile = fileRepository.save(file);
         return ResponseEntity.status(200).body(updatedFile);

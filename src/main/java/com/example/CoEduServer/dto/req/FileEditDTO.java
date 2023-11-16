@@ -9,10 +9,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public class FileEditDTO {
     @NotNull
-    private String file_name;
+    private String fileName;
     @NotNull
     private String language;
     @NotNull
-    private String file_detail;
+    private String fileDetail;
     private Long file_id;
 }
