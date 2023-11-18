@@ -1,5 +1,6 @@
 package com.example.CoEduServer.dto.res;
 
+import com.example.CoEduServer.domain.BaseTimeEntity;
 import com.example.CoEduServer.domain.User_File;
 import lombok.*;
 
@@ -7,7 +8,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetFilesDTO {
+public class GetFilesDTO extends BaseTimeEntity {
     private Long fileId;
     private String fileName;
     private String language;

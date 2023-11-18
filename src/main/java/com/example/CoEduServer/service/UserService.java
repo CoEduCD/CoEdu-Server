@@ -18,7 +18,6 @@ public class UserService {
         User byUser = userRepository.findByEmail(loginReq.getEmail()).orElse(null);
         System.out.println(byUser);
         if(byUser == null){
-
             User savedUser = userRepository.save(loginReq.toEntity());
             return savedUser.getId();
         }
