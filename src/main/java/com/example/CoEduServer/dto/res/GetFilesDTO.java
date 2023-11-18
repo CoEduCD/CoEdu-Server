@@ -4,6 +4,8 @@ import com.example.CoEduServer.domain.BaseTimeEntity;
 import com.example.CoEduServer.domain.User_File;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -13,6 +15,8 @@ public class GetFilesDTO extends BaseTimeEntity {
     private String fileName;
     private String language;
     private String fileDetail;
+    private LocalDateTime createdTime;
+    private LocalDateTime modifiedTime;
 
     public static GetFilesDTO toEntity(User_File user_file) {
         return GetFilesDTO.builder()
@@ -20,6 +24,8 @@ public class GetFilesDTO extends BaseTimeEntity {
                 .fileName(user_file.getFile().getFileName())
                 .language(user_file.getFile().getLanguage())
                 .fileDetail(user_file.getFile().getFileDetail())
+                .createdTime(user_file.getFile().getCreatedTime())
+                .modifiedTime(user_file.getFile().getModifiedTime())
                 .build();
     }
 
