@@ -3,6 +3,7 @@ package com.example.CoEduServer.controller;
 import com.example.CoEduServer.domain.File;
 import com.example.CoEduServer.domain.User;
 import com.example.CoEduServer.domain.User_File;
+import com.example.CoEduServer.domain.enums.Role;
 import com.example.CoEduServer.dto.res.GetFilesDTO;
 import com.example.CoEduServer.dto.req.FileCreateDTO;
 import com.example.CoEduServer.dto.req.FileDeleteDTO;
@@ -53,7 +54,8 @@ public class FileController {
         User_File userFile = new User_File();
         userFile.setUser(user);
         userFile.setFile(file);
-
+        userFile.setRole(Role.ADMIN);
+        userFile.setFileHash(fileCreateDTO.getFileHash());
         userFileRepository.save(userFile);
         return ResponseEntity.status(200).body(new BaseResponse("파일 생성 성공", 200));
     }

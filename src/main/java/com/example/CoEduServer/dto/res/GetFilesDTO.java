@@ -15,6 +15,7 @@ public class GetFilesDTO extends BaseTimeEntity {
     private String fileName;
     private String language;
     private String fileDetail;
+    private String fileHash;
     private LocalDateTime createdTime;
     private LocalDateTime modifiedTime;
 
@@ -24,6 +25,7 @@ public class GetFilesDTO extends BaseTimeEntity {
                 .fileName(user_file.getFile().getFileName())
                 .language(user_file.getFile().getLanguage())
                 .fileDetail(user_file.getFile().getFileDetail())
+                .fileHash(user_file.getFile().getFileHash())
                 .createdTime(user_file.getFile().getCreatedTime())
                 .modifiedTime(user_file.getFile().getModifiedTime())
                 .build();

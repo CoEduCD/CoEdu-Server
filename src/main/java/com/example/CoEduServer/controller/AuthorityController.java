@@ -86,7 +86,7 @@ public class AuthorityController {
 
     @DeleteMapping("/file/authority/delete")
     public ResponseEntity<List<GetAuthorityDTO>> deleteAuthority(@RequestBody DeleteAuthorityDTO deleteAuthorityDTO){
-        User_File user_file = userFileRepository.findByFileHashAndUser_Id(deleteAuthorityDTO.getFile_hash(), deleteAuthorityDTO.getUser_id()).orElse(null);
+        User_File user_file = userFileRepository.findByFileHashAndUser_Id(deleteAuthorityDTO.getFileHash(), deleteAuthorityDTO.getUser_id()).orElse(null);
         if(user_file == null){
             return ResponseEntity.status(400).body(null);
         }
