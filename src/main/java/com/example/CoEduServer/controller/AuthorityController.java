@@ -73,6 +73,9 @@ public class AuthorityController {
         if(user_file == null){
             return ResponseEntity.status(400).body(null);
         }
+        if(user_file.getRole() != Role.ADMIN){
+            return ResponseEntity.status(400).body(null);
+        }
         File file = fileRepository.findById(user_file.getFile().getId()).orElse(null);
         if(file == null){
             return ResponseEntity.status(400).body(null);
