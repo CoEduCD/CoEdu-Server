@@ -15,6 +15,7 @@ public class GetFilesDTO extends BaseTimeEntity {
     private Long userId;
     private Long fileId;
     private Role role;
+    private String name;
     private String fileName;
     private String language;
     private String fileDetail;
@@ -26,6 +27,7 @@ public class GetFilesDTO extends BaseTimeEntity {
         return GetFilesDTO.builder()
                 .fileId(user_file.getFile().getId())
                 .userId(user_file.getUser().getId())
+                .name(user_file.getUser().getName())
                 .fileName(user_file.getFile().getFileName())
                 .language(user_file.getFile().getLanguage())
                 .fileDetail(user_file.getFile().getFileDetail())
