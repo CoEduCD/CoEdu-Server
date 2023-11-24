@@ -7,7 +7,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class EditAuthorityDTO {
-    private String fileHash;
     private Role role;
-    private Long user_id;
+    private Long userId;
+    private Long fileId;
+    private Long editUserId;
 }

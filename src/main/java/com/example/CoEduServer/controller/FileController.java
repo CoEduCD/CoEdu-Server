@@ -13,6 +13,8 @@ import com.example.CoEduServer.repository.FileRepository;
 import com.example.CoEduServer.repository.UserFileRepository;
 import com.example.CoEduServer.repository.UserRepository;
 import com.example.CoEduServer.service.FileService;
+import com.example.CoEduServer.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,61 +30,50 @@ public class FileController {
     private final UserRepository userRepository;
     private final UserFileRepository userFileRepository;
 
-
+    private final FileService fileService;
+    private final UserService userService;
     @GetMapping("/file/{userId}")
     public ResponseEntity<List<GetFilesDTO>> getUserFiles(@PathVariable Long userId) {
-        List<User_File> userFiles = userFileRepository.findByUser_Id(userId);
-        List<GetFilesDTO> dto = new ArrayList<>();
-        for(User_File user_file : userFiles) {
-            dto.add(GetFilesDTO.toEntity(user_file));
-        }
+        List<GetFilesDTO> dto = fileService.getFiles(userId);
         return ResponseEntity.ok().body(dto);
     }
+    @Transactional
     @PostMapping("/file/create")
     public ResponseEntity<? extends BaseResponse> addFile(@RequestBody FileCreateDTO fileCreateDTO){
-        // file을 생성할때 해당 사용자의 id와 파일 정보들을 전달받음.
-        // 전달받은 파일 정보들을 저장하는데,
-        // 이걸 user_file에도 user_id와 file_id로 같이 저장해주면됨.
-        // 해당 유저의 정보를 찾음
-        User user = userRepository.findById(fileCreateDTO.getUser_id()).orElse(null);
+        User user = userService.isExistUserId(fileCreateDTO.getUserId());
         if(user == null){
             return ResponseEntity.status(500).body(new BaseResponse("해당 유저가 존재하지 않습니다.",500));
         }
-        // 해당 유저의 정보와 파일 정보를 user_file에 저장
-        File file = fileCreateDTO.toEntity();
-        fileRepository.save(file);
-        User_File userFile = new User_File();
-        userFile.setUser(user);
-        userFile.setFile(file);
-        userFile.setRole(Role.ADMIN);
-        userFile.setFileHash(fileCreateDTO.getFileHash());
-        userFileRepository.save(userFile);
+        File file = fileService.saveFile(fileCreateDTO);
+        fileService.saveUserFile(user, file);
         return ResponseEntity.status(200).body(new BaseResponse("파일 생성 성공", 200));
     }
 //
     @PatchMapping("/file/edit")
-    public ResponseEntity<File> editFile(@RequestBody FileEditDTO fileEditDTO){
-        // patch시 file
-        Long fileId = fileEditDTO.getFile_id();
-        File file = fileRepository.findById(fileId).orElse(null);
-        if (file == null) {
-            return ResponseEntity.status(400).body(null);
+    public ResponseEntity<? extends BaseResponse> editFile(@RequestBody FileEditDTO fileEditDTO){
+        // 1. user_file에 해당 file이 있는지 확인.
+        // 2. user_id와 file_id로 해당
+        User_File user_file = userFileRepository.findByUserIdAndFileId(fileEditDTO.getUserId(), fileEditDTO.getFileId()).orElse(null);
+        if (user_file == null) {
+            return ResponseEntity.status(400).body(new BaseResponse("해당 파일이 존재하지 않습니다.", 400));
         }
-        file.setFileDetail(fileEditDTO.getFileDetail());
-        file.setFileName(fileEditDTO.getFileName());
-        file.setLanguage(fileEditDTO.getLanguage());
-        File updatedFile = fileRepository.save(file);
-        return ResponseEntity.status(200).body(updatedFile);
+        if (user_file.getRole() != Role.ADMIN){
+            return ResponseEntity.status(400).body(new BaseResponse("관리자가 아닙니다.", 400));
+        }
+        fileService.editFile(fileEditDTO, user_file.getFile());
+        return ResponseEntity.status(200).body(new BaseResponse("파일 수정을 성공하였습니다.", 200));
     }
 
     @DeleteMapping("/file/delete")
     public ResponseEntity<? extends BaseResponse> deleteFile(@RequestBody FileDeleteDTO fileDeleteDTO) {
-        File byId = fileRepository.findById(fileDeleteDTO.getFile_id()).orElse(null);
-        if(byId == null){
+        User_File user_file = userFileRepository.findByUserIdAndFileId(fileDeleteDTO.getUserId(), fileDeleteDTO.getFileId()).orElse(null);
+        if(user_file == null){
             return ResponseEntity.status(400).body(new BaseResponse("해당 id를 가진 파일이 존재하지 않습니다.", 400));
         }
-        fileRepository.deleteById(byId.getId());
-        userFileRepository.deleteByFile_Id(byId.getId());
+        if(user_file.getRole() != Role.ADMIN){
+            return ResponseEntity.status(400).body(new BaseResponse("관리자가 아닙니다.", 400));
+        }
+        fileService.deleteFile(fileDeleteDTO.getFileId());
         return ResponseEntity.status(200).body(new BaseResponse("파일 삭제를 성공하였습니다.", 200));
     }
 }

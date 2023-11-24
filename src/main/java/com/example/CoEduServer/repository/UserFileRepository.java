@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserFileRepository extends JpaRepository<User_File, Long> {
-    List<User_File> findByUser_Id(Long userId);
+    List<User_File> findByUserId(Long userId);
 
-    Optional<User_File> deleteByFile_Id(Long fileId);
+    Optional<User_File> deleteByFileId(Long fileId);
 
-    Optional<User_File> findByFileHashAndUser_Id(String fileHash, Long userId);
+    List<User_File> findByFileId(Long fileId);
+    Optional<User_File> findByUserIdAndFileId(Long userId, Long fileId);
+    Optional<User_File> deleteByUserIdAndFileId(Long userId, Long fileId);
 
-    List<User_File> findByFileHash(String fileHash);
-    Optional<User_File> findByFile_Id(Long fileId);
 }

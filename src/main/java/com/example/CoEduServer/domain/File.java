@@ -19,7 +19,7 @@ import java.util.List;
 public class File extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "file_id")
+    @Column(name = "fileId")
     private Long id;
 
     @Column
@@ -31,18 +31,10 @@ public class File extends BaseTimeEntity{
     @Column
     private String fileDetail;
 
-    @Enumerated(EnumType.STRING)
-    @Column
-    private Role role;
-
     @Column(nullable = false)
     private String fileHash;
 
     @OneToMany(mappedBy = "file")
     private List<User_File> userFiles = new ArrayList<>();
-
-    public String getRoleKey(){
-        return this.role.getKey();
-    }
 
 }

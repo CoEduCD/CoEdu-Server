@@ -25,14 +25,13 @@ public class GetFilesDTO extends BaseTimeEntity {
 
     public static GetFilesDTO toEntity(User_File user_file) {
         return GetFilesDTO.builder()
-                .fileId(user_file.getFile().getId())
                 .userId(user_file.getUser().getId())
+                .fileId(user_file.getFile().getId())
+                .role(user_file.getRole())
                 .name(user_file.getUser().getName())
                 .fileName(user_file.getFile().getFileName())
                 .language(user_file.getFile().getLanguage())
-                .fileDetail(user_file.getFile().getFileDetail())
                 .fileHash(user_file.getFile().getFileHash())
-                .role(user_file.getFile().getRole())
                 .createdTime(user_file.getFile().getCreatedTime())
                 .modifiedTime(user_file.getFile().getModifiedTime())
                 .build();

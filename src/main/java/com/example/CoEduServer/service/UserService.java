@@ -26,11 +26,11 @@ public class UserService {
         }
     }
 
-//    public boolean isExistUserId(Long Id){
-//        User byId = userRepository.findByUser_id(Id).orElse(null);
-//
-//        return byId != null;
-//    }
+    public User isExistUserId(Long Id){
+        User byId = userRepository.findById(Id).orElse(null);
+
+        return byId;
+    }
 
 //    public User getUser(Long Id){
 //        Optional<User> user = userRepository.findByUser_id(Id);

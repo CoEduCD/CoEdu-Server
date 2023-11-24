@@ -19,14 +19,13 @@ public class FileCreateDTO {
     String fileDetail;
 
     String fileHash;
-    Long user_id;
+    Long userId;
     public File toEntity(){
         return File.builder()
                 .fileName(fileName)
                 .language(language)
                 .fileDetail(fileDetail)
                 .fileHash(fileHash)
-                .role(Role.ADMIN)
                 .build();
     }
 }

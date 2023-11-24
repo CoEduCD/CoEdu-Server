@@ -2,25 +2,33 @@ package com.example.CoEduServer.domain;
 
 import com.example.CoEduServer.domain.enums.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class User_File {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_file_id")
+    @Column(name = "userFileId")
     private Long id;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     private User user;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "file_id")
+    @JoinColumn(name = "fileId")
     private File file;
 
-    private String fileHash;
     private Role role;
+
+    public String getRoleKey(){
+        return this.role.getKey();
+    }
 }
