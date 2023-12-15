@@ -45,11 +45,11 @@ public class AuthorityController {
             return ResponseEntity.status(400).body(null);
         }
         // 2. fileId와 userID로 해당 파일에 대한 권한이 ADMIN인지 확인.
-        User_File byUserIdAndFileId = userFileRepository.findByUserIdAndFileId(addAuthorityDTO.getUserId(), addAuthorityDTO.getFileId()).orElse(null);
-        if(byUserIdAndFileId == null){
+        User_File user_file = userFileRepository.findByUserIdAndFileId(addAuthorityDTO.getUserId(), addAuthorityDTO.getFileId()).orElse(null);
+        if(user_file == null){
             return ResponseEntity.status(400).body(null);
         }
-        if(byUserIdAndFileId.getRole() != Role.ADMIN){
+        if(user_file.getRole() != Role.ADMIN){
             return ResponseEntity.status(400).body(null);
         }
         // 3. 추가하려는 사용자의 email이 user table에 존재하는지 확인.
@@ -57,7 +57,12 @@ public class AuthorityController {
         if(user == null){
             return ResponseEntity.status(404).body(null);
         }
-        Long fileId = authorityService.saveAuthority(user, byUserIdAndFileId.getFile());
+        // 4. 추가하려는 사용자의 정보가 이미 userFileRepository에 있는지 확인
+        User_File byUserIdAndFileId = userFileRepository.findByUserIdAndFileId(user.getId(), addAuthorityDTO.getFileId()).orElse(null);
+        if(byUserIdAndFileId != null){
+            return ResponseEntity.status(400).body(null);
+        }
+        Long fileId = authorityService.saveAuthority(user, user_file.getFile());
         return ResponseEntity.ok().body(authorityService.getUserFiles(fileId));
     }
 

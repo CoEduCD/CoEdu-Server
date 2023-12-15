@@ -14,10 +14,13 @@ import lombok.NoArgsConstructor;
 public class GetAuthorityDTO {
     private Long userId;
     private Role role;
-
+    private String email;
+    private String name;
     public static GetAuthorityDTO toEntity(User_File user_file){
         return GetAuthorityDTO.builder()
                 .userId(user_file.getUser().getId())
+                .email(user_file.getUser().getEmail())
+                .name(user_file.getUser().getName())
                 .role(user_file.getRole())
                 .build();
     }
