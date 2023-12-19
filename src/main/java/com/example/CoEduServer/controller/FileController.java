@@ -39,14 +39,15 @@ public class FileController {
     }
     @Transactional
     @PostMapping("/file/create")
-    public ResponseEntity<? extends BaseResponse> addFile(@RequestBody FileCreateDTO fileCreateDTO){
+    public ResponseEntity<List<GetFilesDTO>> addFile(@RequestBody FileCreateDTO fileCreateDTO){
         User user = userService.isExistUserId(fileCreateDTO.getUserId());
         if(user == null){
-            return ResponseEntity.status(500).body(new BaseResponse("해당 유저가 존재하지 않습니다.",500));
+            return ResponseEntity.status(500).body(null);
         }
         File file = fileService.saveFile(fileCreateDTO);
         fileService.saveUserFile(user, file);
-        return ResponseEntity.status(200).body(new BaseResponse("파일 생성 성공", 200));
+        List<GetFilesDTO> dto = fileService.getFiles(fileCreateDTO.getUserId());
+        return ResponseEntity.ok().body(dto);
     }
 //
     @PatchMapping("/file/edit")
