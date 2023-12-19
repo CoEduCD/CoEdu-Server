@@ -39,15 +39,15 @@ public class FileController {
     }
     @Transactional
     @PostMapping("/file/create")
-    public ResponseEntity<List<GetFilesDTO>> addFile(@RequestBody FileCreateDTO fileCreateDTO){
+    public ResponseEntity<File> addFile(@RequestBody FileCreateDTO fileCreateDTO){
         User user = userService.isExistUserId(fileCreateDTO.getUserId());
         if(user == null){
             return ResponseEntity.status(500).body(null);
         }
         File file = fileService.saveFile(fileCreateDTO);
         fileService.saveUserFile(user, file);
-        List<GetFilesDTO> dto = fileService.getFiles(fileCreateDTO.getUserId());
-        return ResponseEntity.ok().body(dto);
+
+        return ResponseEntity.ok().body(file);
     }
 //
     @PatchMapping("/file/edit")
