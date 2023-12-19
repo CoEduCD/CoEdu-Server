@@ -58,7 +58,7 @@ public class FileController {
         if (user_file == null) {
             return ResponseEntity.status(400).body(new BaseResponse("해당 파일이 존재하지 않습니다.", 400));
         }
-        if (user_file.getRole() != Role.ADMIN || user_file.getRole() != Role.EDITOR){
+        if (user_file.getRole() != Role.ADMIN && user_file.getRole() != Role.EDITOR){
             return ResponseEntity.status(400).body(new BaseResponse("관리자나 편집자가 아닙니다.", 400));
         }
         fileService.editFile(fileEditDTO, user_file.getFile());
