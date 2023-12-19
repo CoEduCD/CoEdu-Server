@@ -28,7 +28,7 @@ public class File extends BaseTimeEntity{
     @Column
     private String language;
 
-    @Column
+    @Column(length = 65535)
     private String fileDetail;
 
     @Column(nullable = false)
